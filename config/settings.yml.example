@@ -1,0 +1,9 @@
+:git:
+  :username: username
+  :password: password
+:redis:
+  :url: redis://redis.url/
+:pubnub:
+  :pub_key: pub_key
+  :sub_key: sub_key
+
