@@ -22,6 +22,11 @@ module Tumblegist
 
   def redis
     @redis ||= Redis.connect :url => Settings[:redis][:url]
+    # @redis ||= Redis.new
+  end
+
+  def root
+    @root ||= Pathname.new(File.expand_path("..",  File.dirname(__FILE__)))
   end
 
   def pubnub
