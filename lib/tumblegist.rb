@@ -7,6 +7,8 @@ require 'redis'
 require 'pubnub'
 require 'pg'
 
+db = URI.parse(ENV['DATABASE_URL'] || 'postgres://localhost/tumblegist')
+
 Settings.use :define, :config_file
 Settings({
   :dedup_expiration => 6.hours.to_i,
@@ -14,11 +16,11 @@ Settings({
     :channel => 'gists'
   },
   :database => {
-    :host => 'localhost',
-    :port => 5432,
-    :dbname => 'tumblegist',
-    :user => '',
-    :password => ''
+    :host => db.host,
+    :port => db.port,
+    :dbname => db.path[1..-1],
+    :user => db.user,
+    :password => db.password
   }
 })
 
