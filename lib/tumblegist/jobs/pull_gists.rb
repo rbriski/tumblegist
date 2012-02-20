@@ -11,12 +11,17 @@ module Tumblegist
       def perform
         gists = Tumblegist::Gist.public
 
-        gists.each do | gist | 
-          if Tumblegist.duplicate?(gist)
-            $stderr.puts "#{gist.id} is a duplicate."
-          else
+        already_sent = Tumblegist::Store.ids
+        new_gists = gists.reject { | gist | already_sent.include?(gist.id.to_i) }
+
+        new_gists.each do | gist | 
+          begin
             $stderr.puts "Adding #{gist.id}..."
             Tumblegist.publish gist
+            Tumblegist::Store.add gist.id
+          rescue OpenURI::HTTPError => e
+            $stderr.puts "Can't add #{gist.id}..."
+            $stderr.puts gist.mash.inspect
           end
         end
       end

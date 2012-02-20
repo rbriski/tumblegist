@@ -24,6 +24,7 @@ GEM
     mime-types (1.17.2)
     multi_json (1.1.0)
     multi_xml (0.4.1)
+    pg (0.13.1)
     pubnub-ruby (0.0.5)
       json
     rack (1.4.1)
@@ -67,6 +68,7 @@ DEPENDENCIES
   hashie
   heroku
   httparty
+  pg
   pubnub-ruby
   rake
   redis
